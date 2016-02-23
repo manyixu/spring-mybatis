@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--命名空间必须指向接口类-->
+<mapper namespace="com.guang.dao.UserDAO">
+
+    <select id="getUsers" resultType="com.guang.daomain.User">
+        SELECT
+            id AS id,
+            phone AS phone,
+            username AS userName,
+            password AS passWord,
+            sex AS sex,
+            city AS city
+        FROM user
+    </select>
+
+    <insert id="addUsers" parameterType="com.guang.daomain.User">
+        INSERT INTO user SET
+            phone = #{user.phone},
+            username = #{user.userName},
+            password = #{user.passWord},
+            sex = #{user.sex},
+            city = #{user.city}
+    </insert>
+
+    <update id="updateUsersByPhone" parameterType="com.guang.daomain.User">
+        UPDATE user
+        <set>
+            <if test="user.phone != null" >
+                phone = #{user.phone},
+            </if>
+            <if test="user.userName != null" >
+                username = #{user.userName},
+            </if>
+            <if test="user.passWord != null" >
+                password = #{user.passWord},
+            </if>
+            <if test="user.sex != null" >
+                sex = #{user.sex},
+            </if>
+            <if test="user.city != null" >
+                city = #{user.city},
+            </if>
+        </set>
+        where phone = #{user.phone}
+    </update>
+</mapper>
